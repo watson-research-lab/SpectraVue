@@ -1,2 +1,2 @@
 # SpectraVue
-An open-source application for wearable device spectroscopy research visualization and analysis. 
+An open-source application for wearable spectroscopy research visualization and analysis. 
