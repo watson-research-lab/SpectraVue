@@ -14,7 +14,7 @@ To install the neccessary dependencies for the project, please run the following
 
 To run the application, please run the following command in your local terminal in the directory where this project exists:
 
-python3 spectravue.py
+`python3 spectravue.py`
 
 The terminal will point to your localhost URL; navigate to this URL to use the application. 
 
