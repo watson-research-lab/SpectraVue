@@ -23,6 +23,7 @@ import plotly.io as pio
 from plotly.subplots import make_subplots
 
 import base64
+import os
 import io
 import tools
 import json
@@ -30,121 +31,148 @@ import re
 import datetime
 
 app = dash.Dash(
-   external_stylesheets=[dbc.themes.BOOTSTRAP, dbc.icons.BOOTSTRAP],
-   suppress_callback_exceptions=True,
+    external_stylesheets=[
+       dbc.themes.BOOTSTRAP, 
+       dbc.icons.BOOTSTRAP,
+       'https://fonts.googleapis.com/css?family=Open+Sans&display=swap'],
+    suppress_callback_exceptions=True,
 )
+
+app.title = "SpectraVue"
+
 
 # Header
 header = html.Header(
     dbc.Container(
         dbc.Row(
-             dbc.Col(
-                html.H1("Lumos Figure Generator", 
-                         style={"font-family": "Segoe UI", "font-size": "60px", "color": "white", "text-shadow": "2px 2px 5px black"}),
-                width=12
-            ),
-            justify="center",
-            className="text-center"
+            [
+                dbc.Col(
+                    html.Img(src=app.get_asset_url("logo.png"), height="100px", className="me-3"),
+                    width=9,
+                    align="center",
+                ),
+                dbc.Col(
+                    html.Div(
+                        [
+                            dbc.Button(
+                              "GitHub",
+                              href="https://github.com/tarek-hamid/SpectraVue",
+                              target="_blank",
+                              color="dark",
+                              className="me-3 my-button", 
+                              external_link=True,
+                              outline=True
+                           ),
+                           dbc.Button(
+                              "Contact",
+                              href="mailto:hamidtarek3@gmail.com",
+                              color="dark",
+                              className="my-button",
+                              external_link=True,
+                              outline=True
+                           )
+                        ],
+                        className="d-flex justify-content-end",
+                    ),
+                    width=3,
+                    align="center",
+                ),
+            ],
+            align="center",
+            className="py-3",
         ),
         fluid=True,
-        className="p-3 bg-dark"
+        className="bg-light",
     )
 )
 
 # User Inputs and Buttons
-inputs =  dbc.Col([
-   dbc.Card([
-      dbc.CardBody([
-         html.Div([
+inputs = dbc.Row(
+    [
+        dbc.Col(
             dcc.Upload(
-               id='upload-data',
-               children=html.Div(
-                  dbc.Button("Upload file", id="upload-button", color="dark", outline=True, className="me-1"),
-                  className="d-grid gap-2 col-6 mx-auto",
-               ),
-               multiple=False
+                id="upload-data",
+                children=html.Div(
+                    dbc.Button(
+                        "Upload file",
+                        id="upload-button",
+                        color="dark",
+                        outline=True,
+                    ),
+                ),
+                multiple=False,
             ),
-            html.Br(),
-            html.Div(id='output-data-upload')
-         ], className='text-center'),
-         html.Br(),
-         html.Label("Start Time:", style={'margin-right': '10px'}),
-         dcc.Input(id="start-time", type="text"),
-         html.Br(),
-         html.Br(),
-         html.Label("End Time:", style={'margin-right': '18px'}),
-         dcc.Input(id="end-time", type="text"),
-         html.Br(),
-         html.Br(),
-         html.Label("LED Order:", style={'margin-right': '11px'}),
-         dcc.Input(id="led-order", type="text"),
-         html.Br(),
-         html.Br(),
-         html.Div([
+            width=True,
+            className="mb-3",
+        ),
+        dbc.Col(
             dcc.RadioItems(
-               id='checklist',
-               options=[
-                     {'label': 'Static', 'value': 'static'},
-                     {'label': 'Animation', 'value': 'animation'},
-               ],
-               value='static',  # default value
-               labelStyle={'display': 'inline-block', 'margin-top': '10px', 'padding-right': '10px'}
-            )
-         ], className='text-center'),
-         html.Br(),
-         # Hidden input for file name
-         html.Div([
-            html.Label("File name:", style={'margin-right': '11px', 'display': 'none'}, id='file-name-input-label'),
-            dcc.Input(
-               id='file-name-input', 
-               type='text', 
-               style={'display': 'none', 'margin-right': '20px', 'margin-left': '50px'}
+                id="checklist",
+                options=[
+                    {"label": "Static", "value": "static"},
+                    {"label": "Animation", "value": "animation"},
+                ],
+                value="static",  # default value
+                labelStyle={"display": "inline-block", "margin-top": "10px"},
             ),
-         ], style={'display': 'inline-flex', 'align-items': 'center'}),
-         html.Br(),
-         html.Br(),
-         html.Div(
-            dbc.Button("Generate", id="generate-button", color="dark", className="me-1"),
-            className="d-grid gap-2 col-6 mx-auto",
-         ),
-         html.Br(),
-         # hidden output container for animation success message
-         html.Div(id='animation-success', style={'display': 'none'}),
-      ])],
-      className="shadow-lg p-3 mb-5 bg-white rounded",
-      ),
-   # Hidden input for file name
-   html.Div(id='file-name-output', style={'display': 'none'})], width=4)
-         
+            width=True,
+            className="text-center",
+        ),
+    ],
+    justify="center",
+    align="center",
+    className="mb-3",
+)
+
 # Graph
-graph = dbc.Col([
-    dcc.Graph(id='graph', style={'height': '600px'}),
-    html.Div(html.A(), id="download-link-container"),
-    html.Div([
-      dbc.Button("Download as PNG", id="download-png-button", color="dark", className="me-1"),
-      dcc.Download(id="download-png"),
-      html.Span(" ", style={"display": "inline-block", "width": "20px"}),
-      dbc.Button("Download as PDF", id="download-pdf-button", color="dark", className="me-1"),
-      dcc.Download(id="download-pdf")
-   ], style={"textAlign": "center", "margin": "10px"})
-], width=8)
+graph = dbc.Col(
+    [
+        dcc.Graph(id="graph", style={"height": "600px"}),
+        dbc.Row(
+            [
+                dbc.Col(
+                    dbc.Button(
+                        "Download as PNG",
+                        id="download-png-button",
+                        color="dark",
+                        className="me-1",
+                    ),
+                    width=True,
+                ),
+                dbc.Col(
+                    dbc.Button(
+                        "Download as PDF",
+                        id="download-pdf-button",
+                        color="dark",
+                        className="me-1",
+                    ),
+                    width=True,
+                ),
+            ],
+            justify="center",
+            align="center",
+            className="my-3",
+        ),
+    ],
+    width=True,
+)
 
 # App Layout
-app.layout = dbc.Container([
-   header,
-   html.Br(),
-   dbc.Row([
-      inputs,
-      graph
-   ], 
-   justify="center",
-   align="center"),
+app.layout = dbc.Container(
+    [
+        header,
+        html.Br(),
+        inputs,
+        graph,
+        # Store user uploaded data
+        dcc.Store(id="data-store", storage_type="session"),
+        dcc.Store(id="filename", storage_type="session"),
+    ],
+    fluid=True,
+)
 
-   # Store user uploaded data
-   dcc.Store(id='data-store', storage_type='session'),
-   dcc.Store(id='filename', storage_type='session'),
 
-], fluid=True)
+'--------------------------------------------------------------------------------------------------------------------------------------'
 
 # Callbacks
 

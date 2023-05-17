@@ -59,77 +59,9 @@ def parse_spec_data_and_return_df(path_to_spec_file, start_time):
 
     return spec_df
 
-def flatten_spec_data(df):
-    '''
-        Given df containing spectrometer data, flatten data into single Lumos measurements.
-
-        Parameters:
-            df (dataframe): dataframe containing spectrometer photodiode values.
-
-        Returns:
-            flattened_df (dataframe): flattened dataframe with single Lumos measurements per row.
-    '''
-
-    # Find led order
-    led_order = df['LED'].unique()
-    led_order = led_order[~np.isnan(led_order)]
-
-    # Define the start LED (assuming it's the first LED in led_order)
-    start_led = led_order[0]
-    
-    # Add 'Cycle' column to dataframe
-    cycle = 0
-    df['Cycle'] = 0
-    for i in range(1, len(df)):
-        if df['LED'].iloc[i] == start_led:
-            cycle += 1
-        df.loc[i, 'Cycle'] = cycle
-
-    # Identify incomplete cycles and remove them
-    cycle_counts = df['Cycle'].value_counts()
-    complete_cycles = cycle_counts[cycle_counts == len(led_order)].index
-    df = df[df['Cycle'].isin(complete_cycles)]
-
-    # Reset 'Cycle' values to be consecutive
-    df['Cycle'] = np.repeat(range(len(df) // len(led_order)), len(led_order))
-
-    # Group dataframe by LED cycles
-    grouped_df = df.groupby('Cycle')
-
-    # Regex to find cols - TODO: change to include Clear and NIR
-    regex = '(F[1-9]_[0-9]+nm)|(Clear)|(NIR)'
-
-    # Flatten each group structure
-    extract_LED_values = lambda group: (
-        group.filter(regex=regex)
-        .values.reshape(1, -1)
-        .flatten()
-        .tolist()
-    )
-
-    # Apply lambda function
-    LED_values_list = [extract_LED_values(group) for _, group in grouped_df]
-
-    # Create flattened df
-    flattened_df = pd.DataFrame(LED_values_list, columns=[f'LED{x}_PD{y}' for x in led_order for y in
-                                                          ['415', '445', '480', '515', '555', '590', '630', '680',
-                                                           'Clear', 'NIR']])
-
-    # Use first values for Time and Timestamp (s)
-    flattened_df['Time'] = grouped_df.first()['Time'].values
-    flattened_df['Timestamp (s)'] = grouped_df.first()['Timestamp (s)'].values
-
-    # Reorder columns to put Time and Timestamp (s) first
-    flattened_df = flattened_df[
-        ['Time', 'Timestamp (s)'] + [col for col in flattened_df.columns if col not in ['Time', 'Timestamp (s)']]]
-
-    flattened_df = flattened_df.dropna()
-
-    return flattened_df
-
 def generate_synthetic_lumos_data(cycles):
     '''
-        Given the number of cycles needed, generates synthetic Lumos in JSON format (for demo/testing purposes) as a text file
+        Given the number of cycles needed, generates synthetic Lumos in txt/JSON format (for demo/testing purposes) as a text file
         in the current directory. 
         
         A random number is generated for each PD. Sampling time is static at 300ms per sample. 
