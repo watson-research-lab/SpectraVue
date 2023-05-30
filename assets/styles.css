@@ -4,11 +4,40 @@ body, button {
     font-family: 'Lato', sans-serif;
 }
 
-.my-button {
+.header-button {
     font-size: 18px;
     border-width: 2px;
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
     border-radius: 50px; 
     width: 125px;
     margin-bottom: 10px;
+}
+
+.tab-button {
+    width: 90%;
+    margin: 5% 5% 5%; 
+    background-color: transparent;
+    border: 2px solid black;
+    font-size: 15px;
+}
+
+.tab-text {
+    font-size: 14px;
+    text-align: center;
+}
+
+.generate-button {
+    background-color: black;
+    color: white;
+}
+
+.label-text {
+    font-weight: bold;
+    margin-right: 2px;
+}
+
+.file-name {
+    font-size: 15px;
+    align-items: center;
+    text-align: center;
 }
