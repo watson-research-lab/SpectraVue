@@ -22,7 +22,7 @@ The terminal will point to your localhost URL; navigate to this URL to use the a
 
 ## Tutorial
 
-A tutorial page is provided on the application landing page, where the data formats, files, and overall data processing scheme is elaborated. 
+A tutorial page is provided on the application landing page, where the data formats, files, and overall data processing scheme are elaborated. 
 
 
 ## License
