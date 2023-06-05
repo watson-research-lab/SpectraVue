@@ -20,6 +20,11 @@ To run the application, please run the following command in your local terminal 
 
 The terminal will point to your localhost URL; navigate to this URL to use the application. 
 
+## Tutorial
+
+A tutorial page is provided on the application landing page, where the data formats, files, and overall data processing scheme is elaborated. 
+
+
 ## License
 This code is Tarek Hamid, 2023, and it is made available under the MIT license enclosed with the software.
 
