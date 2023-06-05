@@ -240,6 +240,7 @@ def static_graph_output(processed_df):
     )
     return fig
 
+
 def animation_graph_output(df):
     '''
     Given a processed df, generate an animated graph with counts per LED-PD combination per timestamp.
@@ -294,11 +295,12 @@ def animation_graph_output(df):
 
         # Plot the interpolated surface
         ax.clear()
-        ax.plot_surface(x_interp_grid, y_interp_grid, z_interp_normalized, cmap='viridis')
-
+        ax.set_title(f'Timestamp: {timestamp: .2f}')
+        ax.plot_surface(y_interp_grid, x_interp_grid, z_interp_normalized, cmap='viridis')
+        
         # Set labels
-        ax.set_xlabel('LED')
-        ax.set_ylabel('PD')
+        ax.set_xlabel('PD')
+        ax.set_ylabel('LED')
         ax.set_zlabel('Response (counts)')
 
         # Set same limits throughout the frames
@@ -378,6 +380,7 @@ def animation_graph_biomarker(df):
 
         ax.clear()
         ax.plot_surface(x_interp_grid, y_interp_grid, z_interp_normalized, cmap='viridis')
+        ax.set_title(f'Timestamp: {timestamp: .2f}')
         ax.set_xlabel('LED')
         ax.set_ylabel('PD')
         ax.set_zlabel('Response (counts)')
