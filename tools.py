@@ -8,16 +8,13 @@ import os
 import re
 import json
 import random
-import time
-from datetime import datetime, timedelta
 
 import numpy as np
 import pandas as pd
 from scipy.interpolate import griddata
 import plotly.graph_objects as go
-import plotly.io as pio
 import matplotlib.pyplot as plt
-from matplotlib.animation import FFMpegWriter, FuncAnimation
+from matplotlib.animation import FuncAnimation
 
 def generate_synthetic_lumos_data(cycles):
     '''

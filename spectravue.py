@@ -5,7 +5,7 @@
 """
 
 import dash
-from dash import dcc, html, callback
+from dash import dcc, html
 import dash_bootstrap_components as dbc
 from dash.dependencies import Input, Output, State
 from dash.exceptions import PreventUpdate
@@ -13,29 +13,16 @@ import dash_player as dp
 from dash import callback_context
 
 import pandas as pd
-import numpy as np
-from scipy.interpolate import griddata
+
 import matplotlib
-import matplotlib.pyplot as plt
 matplotlib.use('agg')
-from mpl_toolkits.mplot3d import Axes3D
-from scipy.interpolate import griddata
-from mpl_toolkits.mplot3d import Axes3D
-import matplotlib.animation as animation
-from matplotlib.animation import FFMpegWriter, FuncAnimation
 import plotly.graph_objects as go
 import plotly.io as pio
-from plotly.subplots import make_subplots
 
 import base64
-import time
-import os
+
 import io
 import tools
-import json
-import re
-import datetime
-import itertools
 
 # Imports and Title
 app = dash.Dash(
