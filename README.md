@@ -1,6 +1,8 @@
 # SpectraVue
 An open-source application for wearable spectroscopy data visualization and analysis. 
 
+![My Image](assets/Static Graph.png)
+
 ## Table of Contents
 
 - [Installation](#installation)
