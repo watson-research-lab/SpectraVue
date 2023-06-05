@@ -20,7 +20,7 @@ To run the application, please run the following command in your local terminal 
 
 The terminal will point to your localhost URL; navigate to this URL to use the application. 
 
-## Licnese
+## License
 This code is Tarek Hamid, 2023, and it is made available under the MIT license enclosed with the software.
 
 Over and above the legal restrictions imposed by this license, if you use this software for an academic publication then you are obliged to provide proper attribution.
