@@ -28,6 +28,13 @@ The terminal will point to your localhost URL; navigate to this URL to use the a
 
 A tutorial page is provided on the application landing page, where the data formats, files, and overall data processing scheme are elaborated. 
 
+## Seminal Works
+
+You can find papers for SpectraVue and Lumos below for additional context of this application and its usage. 
+
+SpectraVue: https://dl.acm.org/doi/10.1145/3594739.3610709
+Lumos: https://dl.acm.org/doi/10.1145/3569502
+
 ## License
 This code is Tarek Hamid, 2023, and it is made available under the MIT license enclosed with the software.
 
