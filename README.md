@@ -32,8 +32,16 @@ A tutorial page is provided on the application landing page, where the data form
 
 You can find papers for SpectraVue and Lumos below for additional context of this application and its usage. 
 
-SpectraVue: https://dl.acm.org/doi/10.1145/3594739.3610709
-Lumos: https://dl.acm.org/doi/10.1145/3569502
+SpectraVue:
+`Tarek Hamid, Insup Lee, and Amanda Watson. 2023. SpectraVue - An Interactive Web Application Enabling Rapid Data Visualization and Analysis for
+Wearable Spectroscopy Research. In Adjunct Proceedings of the 2023 ACM
+International Joint Conference on Pervasive and Ubiquitous Computing & the
+2023 ACM International Symposium on Wearable Computing (UbiComp/ISWC
+’23 Adjunct), October 08–12, 2023, Cancun, Quintana Roo, Mexico. ACM, New
+York, NY, USA, 5 pages. https://doi.org/10.1145/3594739.3610709`
+
+Lumos:
+`Amanda Watson, Claire Kendell, Anush Lingamoorthy, Insup Lee, and James Weimer. 2023. Lumos: An Open-Source Device for Wearable Spectroscopy Research. Proc. ACM Interact. Mob. Wearable Ubiquitous Technol. 6, 4, Article 187 (December 2022), 24 pages. https://doi.org/10.1145/3569502`
 
 ## License
 This code is Tarek Hamid, 2023, and it is made available under the MIT license enclosed with the software.
