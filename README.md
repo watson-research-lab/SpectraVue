@@ -35,6 +35,16 @@ Over and above the legal restrictions imposed by this license, if you use this s
 
 `Tarek Hamid. SpectraVue: enabling wearable spectroscopy data visualization and analysis, v0.0.1 (2023). github.com/tarek-hamid/SpectraVue`
 
+We also ask that you cite the original paper in your work: 
+
+`Tarek Hamid, Insup Lee, and Amanda Watson. 2023. SpectraVue - An Interactive Web Application Enabling Rapid Data Visualization and Analysis for
+Wearable Spectroscopy Research. In Adjunct Proceedings of the 2023 ACM
+International Joint Conference on Pervasive and Ubiquitous Computing & the
+2023 ACM International Symposium on Wearable Computing (UbiComp/ISWC
+’23 Adjunct), October 08–12, 2023, Cancun, Quintana Roo, Mexico. ACM, New
+York, NY, USA, 5 pages. https://doi.org/10.1145/3594739.3610709`
+
+
 ## Questions? 
 
 Please contact Tarek Hamid - hamidtarek3@gmail.com
